@@ -13,6 +13,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  var items = <String>[];
+
+  // creating our list
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,9 +38,9 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        body: new Column(
-          children: [
-            new Container(
+        body: Column(
+          children:<Widget> [
+            Container(
               padding: EdgeInsets.all(2.0),
               margin: EdgeInsets.all(5.0),
               child: TextField(
@@ -45,7 +51,48 @@ class _MyAppState extends State<MyApp> {
                   prefix: Icon(Icons.search),
                   labelText: 'Search'
                 ),
+                onChanged: (value){
+                  // do something on trigger
+
+                }
               ),
+            ),
+            Expanded(
+                child:ListView.builder(
+                  itemCount: items.length,
+                itemBuilder: (context,index){
+                    return Card(
+                      elevation: 1.0,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.cyan, width: 1),
+                        borderRadius: BorderRadius.circular(15.5)
+                      ),
+                      child: Container(
+                        margin: EdgeInsets.all(7.0),
+                        padding: EdgeInsets.all(7.0),
+                        child: Row(
+                          children: <Widget>[
+                            // add an avater
+                            CircleAvatar(
+                              child: new Text(
+                                  // text preview will be the first letter of the string
+                                  '${items[index][0]}'),
+                              backgroundColor: Color(0xff00695c),
+                              foregroundColor: Colors.white,
+                            ),
+                            new Padding(padding: EdgeInsets.all(8.0)),
+                            Text(
+                              '${items[index]}',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                },
+                )
             )
           ],
         ),
